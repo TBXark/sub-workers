@@ -1,0 +1,23 @@
+{
+  "name": "sub-workers",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js",
+    "deploy": "wrangler deploy"
+  },
+  "author": "",
+  "license": "MIT",
+  "description": "",
+  "dependencies": {
+    "ip-address": "^9.0.5",
+    "js-base64": "^3.7.7",
+    "lodash": "^4.17.21",
+    "peggy": "^4.0.3",
+    "sub-store-proxy-tools": "^2.14.385"
+  },
+  "devDependencies": {
+    "wrangler": "^3.78.7"
+  }
+}
