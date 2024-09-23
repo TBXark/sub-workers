@@ -1,4 +1,4 @@
-import { parse, produce }  from "sub-store-convert/core-export.js"
+import { parse, produce } from "sub-store-convert/core-export.js"
 
 function loadProducer(target) {
     const t = target.toLowerCase()
@@ -74,25 +74,38 @@ export async function convert(url, target, opts) {
     }
 }
 
+
 export default {
     async fetch(request) {
         const uri = new URL(request.url)
-        const opts = {}
-        uri.searchParams.forEach((value, key) => {
-            opts[key] = value
-        })
-        const target = opts.target
-        const url = opts.url
-        if (!target || !url) {
-            return new Response('Missing target or url', { status: 400 })
-        }
-        delete opts.target
-        delete opts.url
-        try {
-            const res = await convert(url, target, opts)
-            return new Response(res, { status: 200 })
-        } catch (e) {
-            return new Response(e.message, { status: 500 })
+        switch (uri.pathname) {
+            case "/":
+                return new Response(null, {
+                    status: 302,
+                    headers: {
+                        "Location": "https://github.com/TBXark/sub-workers"
+                    }
+                })
+            case "/sub":
+                const opts = {}
+                uri.searchParams.forEach((value, key) => {
+                    opts[key] = value
+                })
+                const target = opts.target
+                const url = opts.url
+                if (!target || !url) {
+                    return new Response('Missing target or url', { status: 400 })
+                }
+                delete opts.target
+                delete opts.url
+                try {
+                    const res = await convert(url, target, opts)
+                    return new Response(res, { status: 200 })
+                } catch (e) {
+                    return new Response(e.message, { status: 500 })
+                }
+            default:
+                return new Response('Not Found', { status: 404 })
         }
     }
 }
