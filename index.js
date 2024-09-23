@@ -12,7 +12,7 @@ function loadProducer(target) {
     return null
 }
 
-async function convert(url, target) {
+async function convert(url, target, opts) {
     const producer = loadProducer(target)
     if (!producer) {
         throw new Error(`Unknown target: ${target}`)
@@ -27,7 +27,10 @@ async function convert(url, target) {
             try {
                 if (p.test(url)) {
                     const proxy = p.parse(url)
-                    proxyList.push(proxy)
+                    proxyList.push({
+                        ...proxy,
+                        ...opts
+                    })
                 }
             } catch (e) {
                 console.error(e)
@@ -55,11 +58,15 @@ export default {
         const uri = new URL(request.url)
         const target = uri.searchParams.get('target')
         const url = uri.searchParams.get('url')
+        const opts = {}
+        uri.searchParams.forEach((value, key) => {
+            opts[key] = value
+        })
         if (!target || !url) {
             return new Response('Missing target or url', { status: 400 })
         }
         try {
-            const res = await convert(url, target)
+            const res = await convert(url, target, opts)
             return new Response(res, { status: 200 })
         } catch (e) {
             return new Response(e.message, { status: 500 })
