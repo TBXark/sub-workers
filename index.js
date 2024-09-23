@@ -12,21 +12,39 @@ function loadProducer(target) {
     return null
 }
 
-async function convert(url, target, opts) {
+function decodeIfNeed(raw) {
+    try {
+        return atob(raw)
+    } catch {
+        return raw
+    }
+}
+
+async function loadRemoteData(url) {
+    try {
+        const text = decodeIfNeed(await (await fetch(url)).text())
+        const urls = text.split('\n').filter(Boolean)
+        return urls
+    } catch (e) {
+        console.error(e)
+        return []
+    }
+}
+
+
+
+export async function convert(url, target, opts) {
     const producer = loadProducer(target)
     if (!producer) {
         throw new Error(`Unknown target: ${target}`)
     }
-    const text = atob(await (await fetch(url)).text())
-    const urls = text.split('\n').filter(Boolean)
-
+    const lines = (await Promise.all(url.split('|').map(loadRemoteData))).flat()
     const proxyList = []
-    
-    for (const url of urls) {
+    for (const line of lines) {
         for (const p of parse) {
             try {
-                if (p.test(url)) {
-                    const proxy = p.parse(url)
+                if (p.test(line)) {
+                    const proxy = p.parse(line)
                     proxyList.push({
                         ...proxy,
                         ...opts
