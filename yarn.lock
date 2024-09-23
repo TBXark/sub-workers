@@ -649,11 +649,12 @@ stoppable@^1.1.0:
   resolved "https://registry.yarnpkg.com/stoppable/-/stoppable-1.1.0.tgz#32da568e83ea488b08e4d7ea2c3bcc9d75015d5b"
   integrity sha512-KXDYZ9dszj6bzvnEMRYvxgeTHU74QBFL54XKtP3nyMuJ81CFYtABZ3bAzL2EdFUaEwJOBOgENyFj3R7oTzDyyw==
 
-sub-store-proxy-tools@^2.14.385:
+sub-store-convert@^2.14.385:
   version "2.14.385"
-  resolved "https://registry.yarnpkg.com/sub-store-proxy-tools/-/sub-store-proxy-tools-2.14.385.tgz#3dcb3c3aadba4b91b07f040ca3622ed1a0640b5e"
-  integrity sha512-UX67GbQI0hGtjvY4q4Km7JeBa1cfzrE0NDSYOYuimlQEOd5sIMIT1mdFMKQEUd+jIKqb5bucjOn92C0WlPfbLQ==
+  resolved "https://registry.yarnpkg.com/sub-store-convert/-/sub-store-convert-2.14.385.tgz#ecf1cf47c9462d8f035a14f61228c32afaf12833"
+  integrity sha512-KDTxLxQ8SQQdCBfSEIA0WM44B4o6r8X9Q8cPQogtVPLzAYg59GibHle6nUAQ+88/bl4pQAt37/9ZQJNsOlrJew==
   dependencies:
+    ip-address "^9.0.5"
     js-base64 "^3.7.7"
     lodash "^4.17.21"
     peggy "^4.0.3"

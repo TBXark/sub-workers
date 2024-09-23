@@ -1,6 +1,4 @@
-import * as utils  from "sub-store-proxy-tools/core-export.js"
-
-const { parse, produce } = utils.default
+import { parse, produce }  from "sub-store-convert/core-export.js"
 
 function loadProducer(target) {
     const t = target.toLowerCase()
@@ -40,15 +38,20 @@ export async function convert(url, target, opts) {
     }
     const lines = (await Promise.all(url.split('|').map(loadRemoteData))).flat()
     const proxyList = []
-    for (const line of lines) {
+    LINELOOP: for (const line of lines) {
         for (const p of parse) {
             try {
                 if (p.test(line)) {
-                    const proxy = p.parse(line)
-                    proxyList.push({
-                        ...proxy,
-                        ...opts
-                    })
+                    try {
+                        const proxy = p.parse(line)
+                        proxyList.push({
+                            ...proxy,
+                            ...opts
+                        })
+                    } catch (e) {
+                        console.error(e)
+                    }
+                    continue LINELOOP
                 }
             } catch (e) {
                 console.error(e)
@@ -62,7 +65,7 @@ export async function convert(url, target, opts) {
         let res = ''
         for (const proxy of proxyList) {
             try {
-                res += producer.produce(proxy, producer.type) + '\n'
+                res += producer.produce(proxy, proxy.type) + '\n'
             } catch (e) {
                 console.error(e)
             }
@@ -74,15 +77,17 @@ export async function convert(url, target, opts) {
 export default {
     async fetch(request) {
         const uri = new URL(request.url)
-        const target = uri.searchParams.get('target')
-        const url = uri.searchParams.get('url')
         const opts = {}
         uri.searchParams.forEach((value, key) => {
             opts[key] = value
         })
+        const target = opts.target
+        const url = opts.url
         if (!target || !url) {
             return new Response('Missing target or url', { status: 400 })
         }
+        delete opts.target
+        delete opts.url
         try {
             const res = await convert(url, target, opts)
             return new Response(res, { status: 200 })
