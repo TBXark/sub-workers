@@ -14,16 +14,16 @@ function loadProducer(target) {
 
 function decodeIfNeed(raw) {
     try {
-        return atob(raw)
+        return { text: atob(raw), decoded: true }
     } catch {
-        return raw
+        return { text: raw, decoded: false }
     }
 }
 
 async function loadRemoteData(url) {
     try {
-        const text = decodeIfNeed(await (await fetch(url)).text())
-        const urls = text.split('\n').filter(Boolean)
+        const { text, decoded } = decodeIfNeed(await (await fetch(url)).text())
+        const urls = decoded ? text.split('\n').filter(Boolean) : [text]
         return urls
     } catch (e) {
         console.error(e)
