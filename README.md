@@ -10,10 +10,11 @@ yarn && yarn run deploy
 ## Example
 ```python
 requests.get(
-    url="https://subconvert.tbxark.com/sub",
+    url="https://sub-workers.tbxark.workers.dev/sub",
     params={
         "target": "surge",
         "url": "https://raw.githubusercontent.com/freefq/free/master/v2",
+        # Other parameters will be directly passed to the converter.
     },
 )
 ```
