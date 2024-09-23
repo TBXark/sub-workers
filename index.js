@@ -38,7 +38,15 @@ async function convert(url, target) {
     if (producer.type === 'ALL') {
         return producer.produce(proxyList)
     } else {
-        return proxyList.map(proxy => producer.produce(proxy, proxy.type)).join('\n')
+        let res = ''
+        for (const proxy of proxyList) {
+            try {
+                res += producer.produce(proxy, producer.type) + '\n'
+            } catch (e) {
+                console.error(e)
+            }
+        }
+        return res
     }
 }
 
