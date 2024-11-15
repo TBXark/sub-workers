@@ -16,7 +16,7 @@
     "js-base64": "^3.7.7",
     "lodash": "^4.17.21",
     "peggy": "^4.1.1",
-    "sub-store-convert": "^2.14.420"
+    "sub-store-convert": "^2.14.421"
   },
   "devDependencies": {
     "wrangler": "^3.87.0"

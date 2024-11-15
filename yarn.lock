@@ -602,10 +602,10 @@ stoppable@^1.1.0:
   resolved "https://registry.yarnpkg.com/stoppable/-/stoppable-1.1.0.tgz#32da568e83ea488b08e4d7ea2c3bcc9d75015d5b"
   integrity sha512-KXDYZ9dszj6bzvnEMRYvxgeTHU74QBFL54XKtP3nyMuJ81CFYtABZ3bAzL2EdFUaEwJOBOgENyFj3R7oTzDyyw==
 
-sub-store-convert@^2.14.420:
-  version "2.14.420"
-  resolved "https://registry.yarnpkg.com/sub-store-convert/-/sub-store-convert-2.14.420.tgz#43907f0358989ebd503cf447f4f9cbd9b6fcf711"
-  integrity sha512-3N1/cQQ8P/DK/UIFWofzyCb8ErrwvHirpwDL2ciTIJ7CnTEDkMKhvqPjRVBJSzq2v2XCSBlaa3SkSYWzIqPrMw==
+sub-store-convert@^2.14.421:
+  version "2.14.421"
+  resolved "https://registry.yarnpkg.com/sub-store-convert/-/sub-store-convert-2.14.421.tgz#3fc1eadb1dc226aa1ccd5774d489c5fbf04f1ee7"
+  integrity sha512-EZ8OVBLNiATyRiOF6iUFYIEqajwPC3gXIqYd4nIzNen6pnnkvbkl85M39v4NvKq27YdlOHmwtBnkxybtUEfqtw==
   dependencies:
     ip-address "^9.0.5"
     js-base64 "^3.7.7"
