@@ -1,4 +1,4 @@
-import { parse, produce } from "sub-store-convert/core-export.js"
+import { parsers, produce } from "sub-store-convert"
 
 function loadProducer(target) {
     const t = target.toLowerCase()
@@ -39,7 +39,7 @@ export async function convert(url, target, opts) {
     const lines = (await Promise.all(url.split('|').map(loadRemoteData))).flat()
     const proxyList = []
     LINELOOP: for (const line of lines) {
-        for (const p of parse) {
+        for (const p of parsers) {
             try {
                 if (p.test(line)) {
                     try {
